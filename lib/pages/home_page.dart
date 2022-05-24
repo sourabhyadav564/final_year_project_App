@@ -35,9 +35,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyTheme.creamColor,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
+        child: Icon(CupertinoIcons.cart),
+        backgroundColor: MyTheme.darkBluishColor,
+      ),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.fromLTRB(10, 10, 25, 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -170,18 +175,14 @@ class CatalogItem extends StatelessWidget {
                             fontSize: 16),
                       ),
                       ElevatedButton(
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      HomeDetailPage(catalog: catalog))),
+                          onPressed: () {},
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
                                   MyTheme.darkBluishColor),
                               shape:
                                   MaterialStateProperty.all(StadiumBorder())),
                           child: Text(
-                            "Buy",
+                            "Add to Cart",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
