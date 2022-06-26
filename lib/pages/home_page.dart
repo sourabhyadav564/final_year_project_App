@@ -8,6 +8,7 @@ import 'package:flutter_application_1/widgets/theme.dart';
 import '../widgets/drawer.dart';
 import '../widgets/item_widget.dart';
 import 'dart:convert';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,11 +35,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyTheme.creamColor,
+      backgroundColor: context.canvasColor,
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
-        child: Icon(CupertinoIcons.cart),
-        backgroundColor: MyTheme.darkBluishColor,
+        child: Icon(CupertinoIcons.cart, color: Colors.white,),
+        backgroundColor: context.theme.buttonColor,
       ),
       body: SafeArea(
         child: Container(
@@ -74,7 +75,7 @@ class CatalogHeader extends StatelessWidget {
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 30,
-              color: MyTheme.darkBluishColor),
+              color: context.theme.accentColor),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -83,7 +84,7 @@ class CatalogHeader extends StatelessWidget {
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
-                color: MyTheme.darkBluishColor),
+                color: context.accentColor),
           ),
         ),
       ],
@@ -97,7 +98,7 @@ class CatalogList extends StatelessWidget {
     return ListView.builder(
       itemCount: CatalogModel.items.length,
       itemBuilder: (context, index) {
-        final catalog = CatalogModel.items[index];
+        final catalog = CatalogModel.getByPosition(index);
         return InkWell(
             onTap: () => Navigator.push(
                 context,
@@ -122,7 +123,7 @@ class CatalogItem extends StatelessWidget {
       dimension: 170,
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
+            color: context.cardColor, borderRadius: BorderRadius.circular(20.0)),
         padding: EdgeInsets.fromLTRB(10, 8, 0, 8),
         margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
         child: Row(
@@ -136,7 +137,7 @@ class CatalogItem extends StatelessWidget {
               ),
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                  color: MyTheme.creamColor,
+                  color: context.canvasColor,
                   borderRadius: BorderRadius.circular(10.0)),
             ),
             Expanded(
@@ -151,7 +152,7 @@ class CatalogItem extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,
-                          color: MyTheme.darkBluishColor),
+                          color: context.accentColor),
                     ),
                   ),
                   Padding(
@@ -159,7 +160,7 @@ class CatalogItem extends StatelessWidget {
                     child: Text(
                       catalog.desc,
                       style: TextStyle(
-                        color: Colors.black54,
+                        color: Colors.grey,
                       ),
                     ),
                   ),
@@ -171,14 +172,14 @@ class CatalogItem extends StatelessWidget {
                         "\$${catalog.price}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: MyTheme.darkBluishColor,
+                            color: context.accentColor,
                             fontSize: 16),
                       ),
                       ElevatedButton(
                           onPressed: () {},
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
-                                  MyTheme.darkBluishColor),
+                                  context.theme.buttonColor),
                               shape:
                                   MaterialStateProperty.all(StadiumBorder())),
                           child: Text(

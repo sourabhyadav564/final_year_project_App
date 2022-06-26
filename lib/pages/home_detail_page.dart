@@ -17,7 +17,7 @@ class HomeDetailPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(),
         bottomNavigationBar: Container(
-          color: Colors.white,
+          color: context.cardColor,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: ButtonBar(
@@ -37,7 +37,7 @@ class HomeDetailPage extends StatelessWidget {
                       onPressed: () {},
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              MyTheme.darkBluishColor),
+                              context.theme.buttonColor),
                           shape: MaterialStateProperty.all(StadiumBorder())),
                       child: Text(
                         "Add to Cart",
@@ -51,7 +51,7 @@ class HomeDetailPage extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor: MyTheme.creamColor,
+        backgroundColor: context.canvasColor,
         body: Column(
           children: [
             Padding(
@@ -69,36 +69,38 @@ class HomeDetailPage extends StatelessWidget {
                     height: 30.0,
                     edge: VxEdge.TOP,
                     arcType: VxArcType.CONVEY,
-                    child: Container(
-                      width: context.screenWidth,
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Text(
-                            catalog.name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 38.0,
-                                height: 3,
-                                color: MyTheme.darkBluishColor),
-                          ),
-                          Text(
-                            catalog.desc,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 25, 10, 0),
-                            child: Text(
-                              "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate",
+                    child: SingleChildScrollView(
+                      child: Container(
+                        width: context.screenWidth,
+                        color: context.cardColor,
+                        child: Column(
+                          children: [
+                            Text(
+                              catalog.name,
                               style: TextStyle(
-                                color: Colors.black54,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 38.0,
+                                  height: 3,
+                                  color: context.accentColor),
+                            ),
+                            Text(
+                              catalog.desc,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16.0,
                               ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 25, 10, 0),
+                              child: Text(
+                                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate",
+                                style: TextStyle(
+                                  color: context.accentColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     )))
           ],
