@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/models/cart.dart';
 import 'package:flutter_application_1/models/catalog.dart';
 import 'package:flutter_application_1/pages/home_detail_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
-import 'package:flutter_application_1/widgets/theme.dart';
-import '../widgets/drawer.dart';
-import '../widgets/item_widget.dart';
 import 'dart:convert';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -98,7 +96,7 @@ class CatalogList extends StatelessWidget {
     return ListView.builder(
       itemCount: CatalogModel.items.length,
       itemBuilder: (context, index) {
-        final catalog = CatalogModel.getByPosition(index);
+        final catalog = CatalogModel.items[index];
         return InkWell(
             onTap: () => Navigator.push(
                 context,
@@ -109,6 +107,46 @@ class CatalogList extends StatelessWidget {
     );
   }
 }
+
+class _AddToCart extends StatefulWidget {
+  final Item catalog;
+
+  const _AddToCart(this.catalog, {Key? key}) : super(key: key);
+
+  @override
+  State<_AddToCart> createState() => _AddToCartState();
+}
+
+class _AddToCartState extends State<_AddToCart> {
+  bool isAdded = false;
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () {
+          isAdded = isAdded.toggle();
+          final _catalog = CatalogModel();
+          final _cart = CartModel();
+          _cart.catalog = _catalog;
+          _cart.add(widget.catalog);
+          setState(() {
+
+          });
+        },
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+                context.theme.buttonColor),
+            shape:
+            MaterialStateProperty.all(StadiumBorder())),
+        child: isAdded?Icon(Icons.done): Text(
+          "Add to Cart",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ));;
+  }
+}
+
+
 
 class CatalogItem extends StatelessWidget {
   final Item catalog;
@@ -175,19 +213,7 @@ class CatalogItem extends StatelessWidget {
                             color: context.accentColor,
                             fontSize: 16),
                       ),
-                      ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  context.theme.buttonColor),
-                              shape:
-                                  MaterialStateProperty.all(StadiumBorder())),
-                          child: Text(
-                            "Add to Cart",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ))
+                      _AddToCart(catalog),
                     ],
                   )
                 ],
