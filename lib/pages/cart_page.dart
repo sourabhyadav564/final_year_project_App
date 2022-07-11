@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/widgets/theme.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../core/store.dart';
 import '../models/cart.dart';
 
 class CartPage extends StatelessWidget {
@@ -30,7 +30,7 @@ class _CartTotal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _cart = CartModel();
+    final CartModel _cart = (VxState.store as MyStore).cartModel;
     return SizedBox(
       height: 100,
       child: Row(
@@ -60,26 +60,26 @@ class _CartTotal extends StatelessWidget {
   }
 }
 
-class _CartList extends StatefulWidget {
-  const _CartList({Key? key}) : super(key: key);
-
-  @override
-  State<_CartList> createState() => _CartListState();
-}
-
-class _CartListState extends State<_CartList> {
-  final _cart = CartModel();
+class _CartList extends StatelessWidget {
+  final CartModel _cart = (VxState.store as MyStore).cartModel;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    VxState.watch(context, on: [RemoveMutation]);
+    return _cart.items.isEmpty ? Center(
+      child: Text(
+        "Nothing To Show",
+      ),
+    ) : ListView.builder(
       itemCount: _cart.items?.length,
       itemBuilder: (context, index) => ListTile(
         leading: Icon(Icons.done),
         trailing: IconButton(
           icon: Icon(Icons.remove_circle_outline),
-          onPressed: () => {},
+          onPressed: () => {
+            RemoveMutation(_cart.items[index])
+          },
         ),
-        title: Text("Item 1"),
+        title: Text(_cart.items[index].name.toString()),
       ),
     );
   }
