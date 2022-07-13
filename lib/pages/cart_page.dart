@@ -37,17 +37,26 @@ class _CartTotal extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(
-            "\$${_cart.totalPrice}",
-            style: TextStyle(fontSize: 32, color: context.accentColor),
+          VxConsumer(
+            builder: (context, MyStore, _) {
+              return Text(
+                "\$${_cart.totalPrice}",
+                style: TextStyle(fontSize: 32, color: context.accentColor),
+              );
+            },
+            notifications: {},
+            mutations: {RemoveMutation},
           ),
           SizedBox(
             width: 40,
           ),
           ElevatedButton(
-            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(context.theme.buttonColor)),
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(context.theme.buttonColor)),
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Buying not supported yet")));
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Buying not supported yet")));
             },
             child: Text(
               "Buy",
@@ -62,25 +71,26 @@ class _CartTotal extends StatelessWidget {
 
 class _CartList extends StatelessWidget {
   final CartModel _cart = (VxState.store as MyStore).cartModel;
+
   @override
   Widget build(BuildContext context) {
     VxState.watch(context, on: [RemoveMutation]);
-    return _cart.items.isEmpty ? Center(
-      child: Text(
-        "Nothing To Show",
-      ),
-    ) : ListView.builder(
-      itemCount: _cart.items?.length,
-      itemBuilder: (context, index) => ListTile(
-        leading: Icon(Icons.done),
-        trailing: IconButton(
-          icon: Icon(Icons.remove_circle_outline),
-          onPressed: () => {
-            RemoveMutation(_cart.items[index])
-          },
-        ),
-        title: Text(_cart.items[index].name.toString()),
-      ),
-    );
+    return _cart.items.isEmpty
+        ? Center(
+            child: Text(
+              "Nothing To Show",
+            ),
+          )
+        : ListView.builder(
+            itemCount: _cart.items?.length,
+            itemBuilder: (context, index) => ListTile(
+              leading: Icon(Icons.done),
+              trailing: IconButton(
+                icon: Icon(Icons.remove_circle_outline),
+                onPressed: () => {RemoveMutation(_cart.items[index])},
+              ),
+              title: Text(_cart.items[index].name.toString()),
+            ),
+          );
   }
 }

@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/models/cart.dart';
 import 'package:flutter_application_1/models/catalog.dart';
 import 'package:flutter_application_1/pages/home_detail_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
 import 'dart:convert';
 import 'package:velocity_x/velocity_x.dart';
-
+import 'package:http/http.dart' as http;
+import '../core/store.dart';
 import '../widgets/add_to_cart.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +17,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final url = "https://api.jsonbin.io/b/604dbddb683e7e079c4eefd3";
+
   @override
   void initState() {
     super.initState();
@@ -22,8 +27,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
+    await Future.delayed(Duration(seconds: 2));
     final catalogJson =
         await rootBundle.loadString("assets/files/catalog.json");
+
+    // final response =
+    //     await http.get(Uri.parse(url));
+    // final catalogJson = response.body;
+
     final decodedData = jsonDecode(catalogJson);
     var productData = decodedData["products"];
     CatalogModel.items =
@@ -33,15 +44,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _cart = (VxState.store as MyStore).cartModel;
     return Scaffold(
       backgroundColor: context.canvasColor,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
-        child: Icon(
-          CupertinoIcons.cart,
-          color: Colors.white,
-        ),
-        backgroundColor: context.theme.buttonColor,
+      floatingActionButton: VxBuilder(
+        mutations: {RemoveMutation, AddMutation},
+        builder: (context, MyStore, _) => FloatingActionButton(
+          onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
+          child: Icon(
+            CupertinoIcons.cart,
+            color: Colors.white,
+          ),
+          backgroundColor: context.theme.buttonColor,
+        ).badge(
+            color: Colors.red,
+            count: _cart.items.length,
+            textStyle:
+            TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       ),
       body: SafeArea(
         child: Container(
