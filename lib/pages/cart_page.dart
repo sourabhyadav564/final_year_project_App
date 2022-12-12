@@ -40,7 +40,8 @@ class _CartTotal extends StatelessWidget {
           VxConsumer(
             builder: (context, MyStore, _) {
               return Text(
-                "\$${_cart.totalPrice}",
+                "\u20B9${_cart.totalPrice}",
+                // "\$${_cart.totalPrice}",
                 style: TextStyle(fontSize: 32, color: context.accentColor),
               );
             },
@@ -56,7 +57,7 @@ class _CartTotal extends StatelessWidget {
                     MaterialStateProperty.all(context.theme.buttonColor)),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Buying not supported yet")));
+                  SnackBar(content: Text("Coming Soon...")));
             },
             child: Text(
               "Buy",

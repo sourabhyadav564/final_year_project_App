@@ -92,7 +92,7 @@ class CatalogHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Catalog App",
+          "Ration House",
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 30,
@@ -101,7 +101,7 @@ class CatalogHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
           child: Text(
-            "Trending Products",
+            "Govt. Initiative for BPL",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
@@ -181,6 +181,7 @@ class CatalogItem extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Text(
                       catalog.desc,
+                      maxLines: 2,
                       style: TextStyle(
                         color: Colors.grey,
                       ),
@@ -191,7 +192,8 @@ class CatalogItem extends StatelessWidget {
                     buttonPadding: EdgeInsets.fromLTRB(0, 0, 16, 0),
                     children: [
                       Text(
-                        "\$${catalog.price}",
+                        "\u20B9${catalog.price}",
+                        // "\$${catalog.price}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: context.accentColor,

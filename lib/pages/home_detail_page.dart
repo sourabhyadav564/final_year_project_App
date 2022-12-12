@@ -71,11 +71,14 @@ class HomeDetailPage extends StatelessWidget {
                                   height: 3,
                                   color: context.accentColor),
                             ),
-                            Text(
-                              catalog.desc,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16.0,
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 25, 10, 0),
+                              child: Text(
+                                catalog.desc,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                ),
                               ),
                             ),
                             Padding(
