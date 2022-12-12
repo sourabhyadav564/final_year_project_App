@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
         changeButton = true;
       });
       await Future.delayed(Duration(milliseconds: 350));
-      await Navigator.pushNamed(context, MyRoutes.homeRoute);
+      await Navigator.pushReplacementNamed(context, MyRoutes.homeRoute);
       setState(() {
         changeButton = false;
       });
@@ -35,8 +35,11 @@ class _LoginPageState extends State<LoginPage> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
+              SizedBox(
+                height: 40.0,
+              ),
               Image.asset(
-                "assets/images/login_image.png",
+                "assets/images/bplBanner.jpg",
                 fit: BoxFit.cover,
               ),
               SizedBox(
@@ -59,12 +62,14 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     TextFormField(
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Enter Username",
-                          labelText: "Username"),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                          hintText: "Enter Ration ID",
+                          labelText: "Ration ID"),
                       validator: (String? value) {
                         if (value!.isEmpty) {
-                          return "Username cannot be empty";
+                          return "Ration ID cannot be empty";
                         }
                         return null;
                       },
@@ -79,7 +84,9 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       obscureText: true,
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40.0)),
+                          // border: OutlineInputBorder(),
                           hintText: "Enter Password",
                           labelText: "Password"),
                       validator: (String? value) {
@@ -97,10 +104,13 @@ class _LoginPageState extends State<LoginPage> {
                     Material(
                       color: context.theme.buttonColor,
                       borderRadius:
-                          BorderRadius.circular(changeButton ? 50 : 8),
+                          BorderRadius.circular(changeButton ? 50 : 30),
                       child: InkWell(
                           onTap: () => moveToHome(context),
                           child: AnimatedContainer(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(changeButton ? 50 : 8)),
                             width: changeButton ? 50 : 100.0,
                             height: 50.0,
                             alignment: Alignment.center,

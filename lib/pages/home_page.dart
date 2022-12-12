@@ -59,8 +59,7 @@ class _HomePageState extends State<HomePage> {
         ).badge(
             color: Colors.red,
             count: _cart.items.length,
-            textStyle:
-            TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+            textStyle:TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       ),
       body: SafeArea(
         child: Container(
@@ -101,7 +100,7 @@ class CatalogHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
           child: Text(
-            "Govt. Initiative for BPL",
+            "Govt. Initiative for BPL card holders",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,

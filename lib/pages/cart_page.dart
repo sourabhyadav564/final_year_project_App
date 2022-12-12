@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../core/store.dart';
@@ -12,7 +14,7 @@ class CartPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: "Cart".text.make(),
+        title: "My Ration".text.make(),
       ),
       body: Column(
         children: [
@@ -78,8 +80,25 @@ class _CartList extends StatelessWidget {
     VxState.watch(context, on: [RemoveMutation]);
     return _cart.items.isEmpty
         ? Center(
-            child: Text(
-              "Nothing To Show",
+            child: Column(
+              children: [
+                Lottie.asset(
+                    "assets/lottie/empty_cart.json",
+                    animate: true,
+                    width: 200,
+                    height: 300,
+                    // reverse: true,
+                    repeat: true,
+                ),
+                // Icon(
+                //   CupertinoIcons.,
+                //   size: 100,
+                //   color: context.theme.accentColor,
+                // ),
+                Text(
+                  "Nothing To Show",
+                ),
+              ],
             ),
           )
         : ListView.builder(
@@ -87,7 +106,7 @@ class _CartList extends StatelessWidget {
             itemBuilder: (context, index) => ListTile(
               leading: Icon(Icons.done),
               trailing: IconButton(
-                icon: Icon(Icons.remove_circle_outline),
+                icon: Icon(Icons.delete_forever),
                 onPressed: () => {RemoveMutation(_cart.items[index])},
               ),
               title: Text(_cart.items[index].name.toString()),

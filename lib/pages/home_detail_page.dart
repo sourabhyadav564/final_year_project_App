@@ -24,7 +24,8 @@ class HomeDetailPage extends StatelessWidget {
               alignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "\$${catalog.price}",
+                  "\u20B9${catalog.price}",
+                  // "\$${catalog.price}",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.red.shade800,
@@ -76,20 +77,20 @@ class HomeDetailPage extends StatelessWidget {
                               child: Text(
                                 catalog.desc,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: context.accentColor,
                                   fontSize: 16.0,
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 25, 10, 0),
-                              child: Text(
-                                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate",
-                                style: TextStyle(
-                                  color: context.accentColor,
-                                ),
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.fromLTRB(15, 25, 10, 0),
+                            //   child: Text(
+                            //     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate",
+                            //     style: TextStyle(
+                            //       color: context.accentColor,
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
