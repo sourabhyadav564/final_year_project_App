@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import '../utils/constants.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,7 +16,33 @@ class _LoginPageState extends State<LoginPage> {
   bool changeButton = false;
   final _formKey = GlobalKey<FormState>();
 
+  checkUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('isLoggedIn') == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkUserLoggedIn().then((value) {
+      if (value) {
+        Future.delayed(
+            Duration(seconds: 3),
+            () => Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => HomePage())));
+      }
+    });
+  }
+
   moveToHome(BuildContext context) async {
+    Constants.setUserData(
+      true,
+      name,
+    );
     if (_formKey.currentState!.validate()) {
       setState(() {
         changeButton = true;
@@ -109,8 +139,8 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: () => moveToHome(context),
                           child: AnimatedContainer(
                             decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(changeButton ? 50 : 8)),
+                                borderRadius: BorderRadius.circular(
+                                    changeButton ? 50 : 8)),
                             width: changeButton ? 50 : 100.0,
                             height: 50.0,
                             alignment: Alignment.center,

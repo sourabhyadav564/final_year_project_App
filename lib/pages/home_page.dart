@@ -4,12 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_1/models/cart.dart';
 import 'package:flutter_application_1/models/catalog.dart';
 import 'package:flutter_application_1/pages/home_detail_page.dart';
+import 'package:flutter_application_1/pages/profile_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
 import 'dart:convert';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 import '../core/store.dart';
 import '../widgets/add_to_cart.dart';
+import 'notification_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,7 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   final url = "https://api.jsonbin.io/b/604dbddb683e7e079c4eefd3";
 
   @override
@@ -59,7 +60,8 @@ class _HomePageState extends State<HomePage> {
         ).badge(
             color: Colors.red,
             count: _cart.items.length,
-            textStyle:TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+            textStyle:
+                TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       ),
       body: SafeArea(
         child: Container(
@@ -87,25 +89,57 @@ class _HomePageState extends State<HomePage> {
 class CatalogHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "Ration House",
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-              color: context.theme.accentColor),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Ration House",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: context.theme.accentColor),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: Text(
+                "Govt. Initiative for BPL card holders",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: context.accentColor),
+              ),
+            ),
+          ],
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-          child: Text(
-            "Govt. Initiative for BPL card holders",
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-                color: context.accentColor),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return NotificationPage();
+                }));
+              },
+              icon: Icon(
+                CupertinoIcons.bell,
+                color: context.theme.accentColor,
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ProfilePage();
+                }));
+              },
+              icon: Icon(
+                CupertinoIcons.profile_circled,
+                color: context.theme.accentColor,
+              ),
+            ),
+          ],
         ),
       ],
     );

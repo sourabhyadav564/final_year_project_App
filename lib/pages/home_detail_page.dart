@@ -59,6 +59,7 @@ class HomeDetailPage extends StatelessWidget {
                     edge: VxEdge.TOP,
                     arcType: VxArcType.CONVEY,
                     child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
                       child: Container(
                         width: context.screenWidth,
                         color: context.cardColor,
@@ -73,7 +74,7 @@ class HomeDetailPage extends StatelessWidget {
                                   color: context.accentColor),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 25, 10, 0),
+                              padding: const EdgeInsets.fromLTRB(15, 25, 10, 150),
                               child: Text(
                                 catalog.desc,
                                 style: TextStyle(
