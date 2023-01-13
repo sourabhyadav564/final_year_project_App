@@ -38,6 +38,7 @@ dependencies:
   http:
   lottie:
   shared_preferences:
+  flare_splash_screen:
 
 dev_dependencies:
   flutter_test:

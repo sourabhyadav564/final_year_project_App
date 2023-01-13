@@ -16,28 +16,6 @@ class _LoginPageState extends State<LoginPage> {
   bool changeButton = false;
   final _formKey = GlobalKey<FormState>();
 
-  checkUserLoggedIn() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool('isLoggedIn') == true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    checkUserLoggedIn().then((value) {
-      if (value) {
-        Future.delayed(
-            Duration(seconds: 3),
-            () => Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => HomePage())));
-      }
-    });
-  }
-
   moveToHome(BuildContext context) async {
     Constants.setUserData(
       true,
